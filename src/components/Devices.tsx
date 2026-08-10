@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { DeviceKind } from "../data/content";
 import "./devices.css";
 
 /* ---------- iPhone ---------- */
@@ -53,6 +54,13 @@ export function DesktopFrame({ children }: { children: ReactNode }) {
       <div className="desktop-foot" />
     </div>
   );
+}
+
+/* ---------- Pick hardware by kind ---------- */
+export function Frame({ kind, children }: { kind: DeviceKind; children: ReactNode }) {
+  if (kind === "phone") return <PhoneFrame>{children}</PhoneFrame>;
+  if (kind === "laptop") return <LaptopFrame>{children}</LaptopFrame>;
+  return <DesktopFrame>{children}</DesktopFrame>;
 }
 
 /* ---------- Peripherals (desktop scene) ---------- */
