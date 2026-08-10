@@ -11,8 +11,45 @@
   padding: 32px;
 }
 
+/* §7: scrim fades 0.3s, panel rises + scales in over 0.5s on --ease */
+.modal-scrim {
+  animation: modalScrimIn 0.3s linear forwards;
+}
+.modal-scrim.is-closing {
+  animation: modalScrimIn 0.3s linear reverse forwards;
+}
+.modal-scrim.is-closing .modal-panel {
+  animation: modalPanelOut 0.3s var(--ease) forwards;
+}
+
+@keyframes modalScrimIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes modalPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(36px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes modalPanelOut {
+  to {
+    opacity: 0;
+    transform: translateY(28px) scale(0.98);
+  }
+}
+
 .modal-panel {
   position: relative;
+  animation: modalPanelIn 0.5s var(--ease) forwards;
   width: 100%;
   max-width: 1120px;
   max-height: calc(100vh - 64px);
@@ -140,8 +177,11 @@ html[data-theme="dark"] .modal-panel {
   position: relative;
   border-left: 1px solid var(--panel-line);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 18px;
+  padding: 28px;
   overflow: hidden;
   background:
     linear-gradient(rgba(124, 92, 255, 0.05) 1px, transparent 1px) 0 0 / 32px 32px,
@@ -152,10 +192,122 @@ html[data-theme="dark"] .modal-panel {
   position: relative;
   width: 390px;
   height: 450px;
+  flex: none;
 }
 
 .modal-scene .dev {
   transform: translate(-50%, -50%) scale(0.58);
+}
+
+/* ---------- Project modal ---------- */
+.modal-scene-phone .dev {
+  transform: translate(-50%, -50%) scale(0.7);
+}
+.modal-scene-laptop,
+.modal-scene-desktop {
+  width: 500px;
+  height: 380px;
+}
+.modal-scene-laptop .dev {
+  transform: translate(-50%, -50%) scale(0.6);
+}
+.modal-scene-desktop .dev {
+  transform: translate(-50%, -50%) scale(0.5);
+}
+
+.pj-title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.pj-logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  flex: none;
+}
+.pj-title-row .modal-title {
+  margin: 16px 0 0;
+}
+
+.pj-category {
+  color: var(--panel-muted);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 12px 0 20px;
+}
+
+.pj-stack {
+  display: grid;
+  gap: 18px;
+  margin: 0 0 34px;
+}
+
+.pj-stack-label {
+  display: block;
+  color: var(--accent);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.pj-stack-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pj-tech {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 9px;
+  border: 1.5px solid var(--panel-line);
+  color: var(--panel-fg);
+  font-size: 12px;
+}
+.pj-tech .tech-ic {
+  width: 14px;
+  height: 14px;
+  filter: grayscale(1) contrast(0.85);
+  opacity: 0.85;
+}
+
+.pj-cap {
+  margin: 0;
+  max-width: 40ch;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--panel-muted);
+}
+
+.pj-rail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pj-rail-btn {
+  border: 1px solid var(--panel-line);
+  background: transparent;
+  color: var(--panel-muted);
+  padding: 6px 10px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.pj-rail-btn:hover {
+  color: var(--panel-fg);
+}
+.pj-rail-btn.is-active {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 @media (max-width: 900px) {
@@ -165,7 +317,7 @@ html[data-theme="dark"] .modal-panel {
 
   .modal-grid {
     grid-template-columns: 1fr;
-    grid-template-rows: 220px auto;
+    grid-template-rows: auto auto;
     overflow-y: auto;
   }
 
@@ -182,6 +334,20 @@ html[data-theme="dark"] .modal-panel {
 
   .modal-scene .dev {
     transform: translate(-50%, -50%) scale(0.4);
+  }
+
+  .modal-scene-phone {
+    width: 320px;
+    height: 300px;
+  }
+  .modal-scene-phone .dev {
+    transform: translate(-50%, -50%) scale(0.45);
+  }
+  .modal-scene-laptop .dev {
+    transform: translate(-50%, -50%) scale(0.38);
+  }
+  .modal-scene-desktop .dev {
+    transform: translate(-50%, -50%) scale(0.31);
   }
 
   .modal-left {
