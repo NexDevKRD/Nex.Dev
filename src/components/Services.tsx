@@ -1,7 +1,15 @@
-import { motion } from "framer-motion";
 import { whatWeDo } from "../data/content";
-import { Reveal } from "./Reveal";
+import { Reveal, useReveal } from "./Reveal";
 import "./sections.css";
+
+function Tile({ delay, children }: { delay: number; children: React.ReactNode }) {
+  const ref = useReveal<HTMLDivElement>(delay);
+  return (
+    <div className="wd-tile reveal-sm" ref={ref}>
+      {children}
+    </div>
+  );
+}
 
 export function Services() {
   return (
@@ -14,14 +22,7 @@ export function Services() {
 
         <div className="wd-grid">
           {whatWeDo.map((w, i) => (
-            <motion.div
-              className="wd-tile"
-              key={w.title}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: (i % 3) * 0.06 + Math.floor(i / 3) * 0.04, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <Tile key={w.title} delay={(i % 3) * 0.06 + Math.floor(i / 3) * 0.04}>
               <h3>{w.title}</h3>
               <p>{w.line}</p>
               <div className="wd-tools">
@@ -29,14 +30,16 @@ export function Services() {
                   <img
                     key={tool.slug}
                     className="tech-ic"
-                    src={`https://cdn.simpleicons.org/${tool.slug}/8a8a93`}
+                    width={22}
+                    height={22}
+                    src={`/icons/${tool.slug}.svg`}
                     alt={tool.name}
                     title={tool.name}
                     loading="lazy"
                   />
                 ))}
               </div>
-            </motion.div>
+            </Tile>
           ))}
         </div>
       </div>
