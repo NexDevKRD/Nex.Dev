@@ -1,36 +1,46 @@
 import { useRef } from "react";
-import { motion } from "framer-motion";
-import { projects, services, type Service } from "../data/content";
-import { Scene } from "./screens";
-import { Reveal } from "./Reveal";
+import { projects, type Project } from "../data/content";
+import { Frame } from "./Devices";
+import { Reveal, useReveal } from "./Reveal";
 import "./sections.css";
 
-export function Projects({ onOpen }: { onOpen: (s: Service) => void }) {
+function Card({ delay, children }: { delay: number; children: React.ReactNode }) {
+  const ref = useReveal<HTMLElement>(delay);
+  return (
+    <article className="work-card reveal-md" ref={ref}>
+      {children}
+    </article>
+  );
+}
+
+export function Projects({ onOpen }: { onOpen: (p: Project) => void }) {
   const trackRef = useRef<HTMLDivElement | null>(null);
 
-  // drag-to-scroll for the horizontal carousel
+  // drag-to-scroll for the horizontal carousel.
+  // Listeners go on window, not a captured pointer: capturing the pointer on the
+  // track retargets the click and the card buttons never fire.
   function onPointerDown(e: React.PointerEvent) {
     const el = trackRef.current;
-    if (!el) return;
+    if (!el || e.button !== 0) return;
     const startX = e.clientX;
     const startScroll = el.scrollLeft;
     let moved = false;
-    el.setPointerCapture(e.pointerId);
-    el.classList.add("dragging");
     const move = (ev: PointerEvent) => {
       const dx = ev.clientX - startX;
       if (Math.abs(dx) > 4) moved = true;
+      if (!moved) return;
+      el.classList.add("dragging");
       el.scrollLeft = startScroll - dx;
     };
     const up = () => {
       el.classList.remove("dragging");
-      el.removeEventListener("pointermove", move);
-      el.removeEventListener("pointerup", up);
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
       if (moved) el.dataset.dragged = "1";
       else delete el.dataset.dragged;
     };
-    el.addEventListener("pointermove", move);
-    el.addEventListener("pointerup", up);
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
   }
 
   return (
@@ -46,40 +56,39 @@ export function Projects({ onOpen }: { onOpen: (s: Service) => void }) {
       </div>
 
       <div className="work-track" ref={trackRef} onPointerDown={onPointerDown} aria-label="Selected work">
-        {projects.map((p, i) => {
-          const svc = services.find((s) => s.id === p.serviceId);
-          return (
-            <motion.article
-              className="work-card"
-              key={p.id}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.55, delay: (i % 3) * 0.08, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className="work-media">
-                <div className={`work-scene work-scene-${p.scene}`}>
-                  <Scene kind={p.scene} />
-                </div>
+        {projects.map((p, i) => (
+          <Card key={p.id} delay={(i % 3) * 0.08}>
+            <div className="work-media">
+              <div className={`work-stage work-stage-${p.device}`}>
+                <Frame kind={p.device}>
+                  <img className="shot" src={p.shots[0].src} alt={`${p.name}: ${p.shots[0].label}`} loading="lazy" />
+                </Frame>
               </div>
-              <div className="work-text">
-                <span className="work-no">{String(i + 1).padStart(2, "0")}</span>
-                <h3>{p.title}</h3>
-                <p>{p.sub}</p>
-                <button
-                  type="button"
-                  className="work-btn"
-                  onClick={(e) => {
-                    if ((e.currentTarget.closest(".work-track") as HTMLElement)?.dataset.dragged) return;
-                    svc && onOpen(svc);
-                  }}
-                >
-                  View <span aria-hidden>→</span>
-                </button>
+            </div>
+            <div className="work-text">
+              <span className="work-no">
+                {p.no} · {p.category.split(" · ")[0]} · {p.year}
+              </span>
+              <h3>{p.name}</h3>
+              <p>{p.tagline}</p>
+              <div className="work-tags">
+                {p.pillars.slice(0, 3).map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
               </div>
-            </motion.article>
-          );
-        })}
+              <button
+                type="button"
+                className="work-btn"
+                onClick={(e) => {
+                  if ((e.currentTarget.closest(".work-track") as HTMLElement)?.dataset.dragged) return;
+                  onOpen(p);
+                }}
+              >
+                View <span aria-hidden>→</span>
+              </button>
+            </div>
+          </Card>
+        ))}
       </div>
     </section>
   );
