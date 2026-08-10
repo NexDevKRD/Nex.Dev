@@ -1,0 +1,65 @@
+/* §7: entrance is opacity + translateY only, --ease, once. */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* card/tile variant — shorter travel, matches the old whileInView values */
+.reveal-sm {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.reveal-md {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+}
+.reveal-sm.is-in,
+.reveal-md.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* hero copy + scene: staggered on load, not on scroll */
+.hero-rise {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: heroRise 0.7s var(--ease) forwards;
+}
+.hero-piece {
+  opacity: 0;
+  transform: translateY(40px) scale(0.92);
+  animation: heroPiece 0.8s var(--ease) forwards;
+}
+
+@keyframes heroRise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes heroPiece {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-sm,
+  .reveal-md,
+  .hero-rise,
+  .hero-piece {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
