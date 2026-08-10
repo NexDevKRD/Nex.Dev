@@ -8,11 +8,11 @@ import { Services } from "./components/Services";
 import { Projects } from "./components/Projects";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
-import { ServiceModal } from "./components/ServiceModal";
-import type { Service } from "./data/content";
+import { ProjectModal } from "./components/ProjectModal";
+import type { Project } from "./data/content";
 
 export default function App() {
-  const [openService, setOpenService] = useState<Service | null>(null);
+  const [openProject, setOpenProject] = useState<Project | null>(null);
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -42,11 +42,11 @@ export default function App() {
         <Hero />
         <DeviceMorph />
         <Services />
-        <Projects onOpen={setOpenService} />
+        <Projects onOpen={setOpenProject} />
         <Contact />
       </main>
       <Footer />
-      <ServiceModal service={openService} onClose={() => setOpenService(null)} />
+      <ProjectModal project={openProject} onClose={() => setOpenProject(null)} />
     </>
   );
 }
