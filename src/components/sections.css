@@ -131,6 +131,7 @@
   padding: 4px 32px 18px;
   scrollbar-width: none;
   cursor: grab;
+  user-select: none;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 3.5%, #000 96.5%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 3.5%, #000 96.5%, transparent);
 }
@@ -168,34 +169,22 @@
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 34px 22px 0;
 }
 
-.work-scene {
+/* Real product shots sit in CSS hardware, scaled down to card size. */
+.work-stage {
   position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(244, 244, 245, 0.13);
-  box-shadow: 0 34px 80px -45px rgba(0, 0, 0, 0.9);
-}
-
-.work-scene-mobile {
-  width: 188px;
-  height: 230px;
-  border-radius: 30px 30px 0 0;
-}
-
-.work-scene-web,
-.work-scene-dash {
-  width: 330px;
-  height: 210px;
-  border-radius: 14px 14px 0 0;
-}
-
-.work-scene .scr {
+  width: 100%;
   height: 100%;
+}
+.work-stage-phone .dev {
+  transform: translate(-50%, -50%) scale(0.34);
+}
+.work-stage-laptop .dev {
+  transform: translate(-50%, -50%) scale(0.4);
+}
+.work-stage-desktop .dev {
+  transform: translate(-50%, -50%) scale(0.33);
 }
 
 .work-text {
@@ -212,6 +201,7 @@
   font-size: 11px;
   letter-spacing: 0.1em;
   margin-bottom: 18px;
+  text-transform: uppercase;
 }
 
 .work-text h3 {
@@ -319,5 +309,15 @@
 
   .work-media {
     height: 220px;
+  }
+
+  .work-stage-phone .dev {
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+  .work-stage-laptop .dev {
+    transform: translate(-50%, -50%) scale(0.34);
+  }
+  .work-stage-desktop .dev {
+    transform: translate(-50%, -50%) scale(0.28);
   }
 }
