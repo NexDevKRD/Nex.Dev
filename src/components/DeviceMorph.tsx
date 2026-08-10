@@ -3,8 +3,12 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { morphStages } from "../data/content";
 import { AndroidFrame, Cursor, DesktopFrame, Keyboard, LaptopFrame, Mouse, PhoneFrame } from "./Devices";
-import { AndroidScreen, DashScreen, MobileScreen, WebScreen } from "./screens";
 import "./morph.css";
+
+// Real product screenshot staged inside a hardware frame.
+function Shot({ src, alt }: { src: string; alt: string }) {
+  return <img className="shot" src={src} alt={alt} loading="lazy" decoding="async" />;
+}
 
 function baseScale(stage: number) {
   const mobile = window.innerWidth < 680;
@@ -90,17 +94,17 @@ export function DeviceMorph() {
               <div className="morph-static-visual">
                 {stage.scene === "mobile" && (
                   <PhoneFrame>
-                    <MobileScreen />
+                    <Shot src={stage.shot} alt={stage.headline} />
                   </PhoneFrame>
                 )}
                 {stage.scene === "web" && (
                   <LaptopFrame>
-                    <WebScreen />
+                    <Shot src={stage.shot} alt={stage.headline} />
                   </LaptopFrame>
                 )}
                 {stage.scene === "dash" && (
                   <DesktopFrame>
-                    <DashScreen />
+                    <Shot src={stage.shot} alt={stage.headline} />
                   </DesktopFrame>
                 )}
               </div>
@@ -139,19 +143,19 @@ export function DeviceMorph() {
             <div className="morph-group stage-mobile">
               <div className="twin twin-ios">
                 <PhoneFrame>
-                  <MobileScreen />
+                  <Shot src={morphStages[0].shot} alt="" />
                 </PhoneFrame>
               </div>
               <div className="twin twin-android">
                 <AndroidFrame>
-                  <AndroidScreen />
+                  <Shot src={morphStages[0].shotB ?? morphStages[0].shot} alt="" />
                 </AndroidFrame>
               </div>
             </div>
 
             <div className="morph-group stage-web">
               <LaptopFrame>
-                <WebScreen />
+                <Shot src={morphStages[1].shot} alt="" />
               </LaptopFrame>
             </div>
 
@@ -159,7 +163,7 @@ export function DeviceMorph() {
               <div className="desk-monitor">
                 <DesktopFrame>
                   <>
-                    <DashScreen />
+                    <Shot src={morphStages[2].shot} alt="" />
                     <Cursor />
                   </>
                 </DesktopFrame>
