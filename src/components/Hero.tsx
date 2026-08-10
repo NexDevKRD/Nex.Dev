@@ -1,27 +1,23 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
-import { motion } from "framer-motion";
 import { hero } from "../data/content";
 import { LaptopFrame, PhoneFrame } from "./Devices";
-import { WebScreen, MobileScreen } from "./screens";
+import "./reveal.css";
 import "./hero.css";
 
-const ease = [0.16, 1, 0.3, 1] as const;
-
-const copyParent = { hidden: {}, show: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } } };
-const rise = {
-  hidden: { opacity: 0, y: 22 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
-};
-const sceneV = { hidden: {}, show: { transition: { staggerChildren: 0.14, delayChildren: 0.4 } } };
-const piece = {
-  hidden: { opacity: 0, y: 40, scale: 0.92 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease } },
-};
-
-// Plays a looping video inside a device screen; falls back to the mock UI
-// until a real clip exists at `src`.
-function MediaScreen({ src, children, fit = "cover" }: { src: string; children: ReactNode; fit?: "cover" | "contain" }) {
+// Plays a looping video inside a device screen; the real product shot sits
+// underneath and carries the frame until the clip is decoded — or if it fails.
+function MediaScreen({
+  src,
+  poster,
+  children,
+  fit = "cover",
+}: {
+  src: string;
+  poster: string;
+  children: ReactNode;
+  fit?: "cover" | "contain";
+}) {
   const [ok, setOk] = useState(false);
   return (
     <div className="media-screen">
@@ -29,6 +25,8 @@ function MediaScreen({ src, children, fit = "cover" }: { src: string; children: 
       <video
         className={`media-vid media-vid-${fit}`}
         src={src}
+        poster={poster}
+        preload="metadata"
         autoPlay
         muted
         loop
@@ -45,35 +43,37 @@ export function Hero() {
   return (
     <section className="hero" id="top">
       <div className="hero-inner container">
-        <motion.div className="hero-copy" variants={copyParent} initial="hidden" animate="show">
-          <motion.span className="hero-eyebrow" variants={rise}>
+        <div className="hero-copy">
+          <span className="hero-eyebrow hero-rise" style={{ animationDelay: "0.05s" }}>
             <span className="hero-eyebrow-dot" /> {hero.badge}
-          </motion.span>
+          </span>
           <h1 className="hero-h1">
-            <motion.span variants={rise}>{hero.h1a}</motion.span>
-            <motion.span variants={rise} className="dim">
+            <span className="hero-rise" style={{ animationDelay: "0.14s" }}>
+              {hero.h1a}
+            </span>
+            <span className="hero-rise dim" style={{ animationDelay: "0.23s" }}>
               {hero.h1b}
-            </motion.span>
+            </span>
           </h1>
-        </motion.div>
+        </div>
 
-        <motion.div className="hero-scene" variants={sceneV} initial="hidden" animate="show" aria-hidden>
-          <motion.div className="hero-laptop" variants={piece}>
+        <div className="hero-scene" aria-hidden>
+          <div className="hero-laptop hero-piece" style={{ animationDelay: "0.4s" }}>
             <LaptopFrame>
-              <MediaScreen src="/media/hero-web.mp4">
-                <WebScreen />
+              <MediaScreen src="/media/hero-web.mp4" poster="/media/hero-web-poster.jpg">
+                <img className="shot" src="/media/work/pace-dashboard.webp" alt="" fetchPriority="high" />
               </MediaScreen>
             </LaptopFrame>
-          </motion.div>
+          </div>
 
-          <motion.div className="hero-phone" variants={piece}>
+          <div className="hero-phone hero-piece" style={{ animationDelay: "0.54s" }}>
             <PhoneFrame>
-              <MediaScreen src="/media/hero-app.mp4">
-                <MobileScreen />
+              <MediaScreen src="/media/hero-app.mp4" poster="/media/hero-app-poster.jpg">
+                <img className="shot" src="/media/work/countcal-diary.webp" alt="" fetchPriority="high" />
               </MediaScreen>
             </PhoneFrame>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );
