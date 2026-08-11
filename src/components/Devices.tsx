@@ -2,28 +2,14 @@ import type { ReactNode } from "react";
 import type { DeviceKind } from "../data/content";
 import "./devices.css";
 
-/* ---------- iPhone ---------- */
+/* ---------- iPhone ----------
+   No island or home-bar overlay: every screenshot we stage is a real device
+   capture that already contains its own status bar, Dynamic Island and home
+   indicator. Drawing ours on top double-notched the shot. */
 export function PhoneFrame({ children }: { children: ReactNode }) {
   return (
     <div className="dev phone phone-ios">
-      <div className="phone-island" />
       <div className="dev-screen">{children}</div>
-      <div className="phone-home" />
-    </div>
-  );
-}
-
-/* ---------- Android ---------- */
-export function AndroidFrame({ children }: { children: ReactNode }) {
-  return (
-    <div className="dev phone phone-android">
-      <div className="android-cam" />
-      <div className="dev-screen">{children}</div>
-      <div className="android-nav">
-        <span />
-        <span className="dot" />
-        <span />
-      </div>
     </div>
   );
 }

@@ -3,7 +3,8 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  will-change: transform, opacity;
+  /* No will-change here: every frame on the page would hold a compositor layer
+     for its whole life. The morph groups that actually animate opt in. */
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform-style: preserve-3d;
@@ -49,71 +50,6 @@
 }
 .phone .dev-screen {
   border-radius: 36px;
-}
-
-/* iPhone — dynamic island + home indicator */
-.phone-island {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 92px;
-  height: 24px;
-  background: #050507;
-  border-radius: 14px;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.35);
-  z-index: 6;
-}
-.phone-home {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 116px;
-  height: 5px;
-  border-radius: 3px;
-  background: rgba(244, 244, 245, 0.7);
-  z-index: 6;
-}
-
-/* Android — squarer, punch-hole camera, nav hint */
-.phone-android {
-  border-radius: 38px;
-  background: linear-gradient(145deg, #242830, #101116 58%, #08090b);
-}
-.phone-android .dev-screen {
-  border-radius: 30px;
-}
-.android-cam {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #050507;
-  box-shadow: inset 0 0 0 1.5px #1c1f27;
-  z-index: 3;
-}
-.android-nav {
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 26px;
-  z-index: 3;
-}
-.android-nav span {
-  width: 11px;
-  height: 11px;
-  border: 1.5px solid rgba(244, 244, 245, 0.5);
-  border-radius: 3px;
-}
-.android-nav span.dot {
-  border-radius: 50%;
 }
 
 /* ---------- Laptop ---------- */
