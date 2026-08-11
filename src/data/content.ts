@@ -5,7 +5,6 @@ export type DeviceKind = "phone" | "laptop" | "desktop";
 export type SceneKind = "mobile" | "web" | "dash";
 
 export const hero = {
-  badge: "Software studio in Erbil",
   h1a: "Nex builds software",
   h1b: "people keep using.",
   sub: "Apps, websites and systems, built by one team in Erbil.",
@@ -57,20 +56,80 @@ export const morphStages: MorphStage[] = [
   },
 ];
 
-// "What we do" — six capability cards, each with the real stack we use.
-// `slug` matches simpleicons.org for the brand logo.
-const t = (name: string, slug: string) => ({ name, slug });
+// "What we do" — six capability cards, each carrying the full tool set we
+// actually ship with. `slug` matches a file in public/icons; `null` means the
+// tool has no brand mark and renders as a plain chip.
+const t = (name: string, slug: string | null = null) => ({ name, slug });
 export const whatWeDo = [
-  { title: "Apps", line: "iOS & Android", tools: [t("Swift", "swift"), t("Kotlin", "kotlin"), t("Flutter", "flutter")] },
-  { title: "Web", line: "Sites & web apps", tools: [t("React", "react"), t("Next.js", "nextdotjs"), t("TypeScript", "typescript")] },
+  {
+    title: "Apps",
+    line: "iOS & Android",
+    tools: [
+      t("Swift", "swift"),
+      t("SwiftUI"),
+      t("Kotlin", "kotlin"),
+      t("Flutter", "flutter"),
+      t("Dart", "dart"),
+      t("Material 3", "materialdesign"),
+    ],
+  },
+  {
+    title: "Web",
+    line: "Sites & web apps",
+    tools: [
+      t("React", "react"),
+      t("Next.js", "nextdotjs"),
+      t("TypeScript", "typescript"),
+      t("Tailwind", "tailwindcss"),
+      t("Vite", "vite"),
+      t("Three.js", "threedotjs"),
+    ],
+  },
   {
     title: "Systems",
     line: "Backends & data",
-    tools: [t("Go", "go"), t("Node.js", "nodedotjs"), t("PostgreSQL", "postgresql"), t("Redis", "redis")],
+    tools: [
+      t("Go", "go"),
+      t("Node.js", "nodedotjs"),
+      t("NestJS", "nestjs"),
+      t("Express", "express"),
+      t("Prisma", "prisma"),
+      t("Zod", "zod"),
+      t("Swagger", "swagger"),
+      t("PostgreSQL", "postgresql"),
+      t("Redis", "redis"),
+      t("SQLite", "sqlite"),
+      t("MinIO", "minio"),
+    ],
   },
-  { title: "Design", line: "UI, UX & brand", tools: [t("Figma", "figma"), t("Excalidraw", "excalidraw")] },
-  { title: "Infra", line: "Deploy & scale", tools: [t("Docker", "docker"), t("Kubernetes", "kubernetes"), t("Flux", "flux")] },
-  { title: "Security", line: "Backed up & watched", tools: [t("Sentry", "sentry"), t("Cloudflare", "cloudflare")] },
+  {
+    title: "Design",
+    line: "UI, UX & brand",
+    tools: [t("Figma", "figma"), t("Excalidraw", "excalidraw"), t("ONLYOFFICE", "onlyoffice")],
+  },
+  {
+    title: "Infra",
+    line: "Deploy & scale",
+    tools: [
+      t("Docker", "docker"),
+      t("Kubernetes", "kubernetes"),
+      t("k3s", "k3s"),
+      t("Flux", "flux"),
+      t("Traefik", "traefikproxy"),
+    ],
+  },
+  {
+    title: "Security",
+    line: "Backed up & watched",
+    tools: [
+      t("Cloudflare", "cloudflare"),
+      t("Sentry", "sentry"),
+      t("JWT"),
+      t("Argon2"),
+      t("bcrypt"),
+      t("Helmet"),
+    ],
+  },
 ];
 
 export interface Shot {
@@ -419,6 +478,6 @@ export const projects: Project[] = [
 
 export const contact = {
   heading: "Tell us what you're building.",
-  sub: "An app, a site, a system — or just an idea. We reply within a day.",
+  sub: "An app, a site, a system, or just an idea. We reply within a day.",
   success: "Got it. We'll be in touch within a day.",
 };
