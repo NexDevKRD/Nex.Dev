@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { hero } from "../data/content";
 import { LaptopFrame, PhoneFrame } from "./Devices";
@@ -19,10 +19,26 @@ function MediaScreen({
   fit?: "cover" | "contain";
 }) {
   const [ok, setOk] = useState(false);
+  const ref = useRef<HTMLVideoElement | null>(null);
+
+  // Two clips decoding forever costs real battery once the hero has scrolled
+  // away. Play only while the frame is on screen.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) void el.play().catch(() => {});
+      else el.pause();
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <div className="media-screen">
       {children}
       <video
+        ref={ref}
         className={`media-vid media-vid-${fit}`}
         src={src}
         poster={poster}
@@ -44,34 +60,41 @@ export function Hero() {
     <section className="hero" id="top">
       <div className="hero-inner container">
         <div className="hero-copy">
-          <span className="hero-eyebrow hero-rise" style={{ animationDelay: "0.05s" }}>
-            <span className="hero-eyebrow-dot" /> {hero.badge}
-          </span>
           <h1 className="hero-h1">
-            <span className="hero-rise" style={{ animationDelay: "0.14s" }}>
+            <span className="hero-rise" style={{ animationDelay: "0.06s" }}>
               {hero.h1a}
             </span>
-            <span className="hero-rise dim" style={{ animationDelay: "0.23s" }}>
+            <span className="hero-rise" style={{ animationDelay: "0.15s" }}>
               {hero.h1b}
             </span>
           </h1>
+          <p className="hero-sub hero-rise" style={{ animationDelay: "0.26s" }}>
+            {hero.sub}
+          </p>
         </div>
 
+        {/* Two nested boxes per device on purpose: the outer one carries the
+            entrance animation (which resets transform), the inner one carries
+            the scale. One element could not hold both. */}
         <div className="hero-scene" aria-hidden>
-          <div className="hero-laptop hero-piece" style={{ animationDelay: "0.4s" }}>
-            <LaptopFrame>
-              <MediaScreen src="/media/hero-web.mp4" poster="/media/hero-web-poster.jpg">
-                <img className="shot" src="/media/work/pace-dashboard.webp" alt="" fetchPriority="high" />
-              </MediaScreen>
-            </LaptopFrame>
+          <div className="hero-slot hero-laptop hero-piece" style={{ animationDelay: "0.4s" }}>
+            <div className="hero-fit hero-fit-laptop">
+              <LaptopFrame>
+                <MediaScreen src="/media/hero-web.mp4" poster="/media/hero-web-poster.jpg">
+                  <img className="shot" src="/media/work/pace-dashboard.webp" alt="" fetchPriority="high" />
+                </MediaScreen>
+              </LaptopFrame>
+            </div>
           </div>
 
-          <div className="hero-phone hero-piece" style={{ animationDelay: "0.54s" }}>
-            <PhoneFrame>
-              <MediaScreen src="/media/hero-app.mp4" poster="/media/hero-app-poster.jpg">
-                <img className="shot" src="/media/work/countcal-diary.webp" alt="" fetchPriority="high" />
-              </MediaScreen>
-            </PhoneFrame>
+          <div className="hero-slot hero-phone hero-piece" style={{ animationDelay: "0.54s" }}>
+            <div className="hero-fit hero-fit-phone">
+              <PhoneFrame>
+                <MediaScreen src="/media/hero-app.mp4" poster="/media/hero-app-poster.jpg">
+                  <img className="shot" src="/media/work/countcal-diary.webp" alt="" fetchPriority="high" />
+                </MediaScreen>
+              </PhoneFrame>
+            </div>
           </div>
         </div>
       </div>

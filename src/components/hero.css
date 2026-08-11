@@ -14,7 +14,7 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  padding: 120px 0 64px;
+  padding-block: 132px 72px;
   display: grid;
   grid-template-columns: 1.02fr 1fr;
   gap: 40px;
@@ -48,24 +48,8 @@
 .hero-copy {
   max-width: 560px;
 }
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.hero-eyebrow-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-}
 .hero-h1 {
-  margin: 26px 0 0;
+  margin: 0;
   color: var(--fg);
   font-size: clamp(46px, 6vw, 92px);
   font-weight: 640;
@@ -74,60 +58,109 @@
   display: flex;
   flex-direction: column;
 }
-.hero-h1 .dim {
+.hero-sub {
+  margin: 26px 0 0;
+  max-width: 42ch;
   color: var(--muted);
+  font-size: 17px;
+  line-height: 1.62;
 }
-/* ---- product scene (scaled, bleeds right) ---- */
+
+/* ---- product scene ----
+   Both frames are absolutely placed inside the right column and scaled to fit
+   it, so nothing bleeds past the viewport at any width. */
 .hero-scene {
   position: relative;
-  height: 540px;
-  transform: scale(0.92);
-  transform-origin: center right;
+  height: 520px;
 }
-.hero-laptop {
+/* --s is the display scale. The slot reserves the *scaled* footprint so
+   top/right/bottom anchoring is exact, and .hero-fit holds the device at its
+   true pixel size and shrinks it. Changing --s at a breakpoint resizes both. */
+.hero-slot {
   position: absolute;
-  top: 18px;
-  right: -150px;
-  transform: scale(0.7);
-  transform-origin: top right;
+}
+.hero-fit {
+  position: relative;
+  transform: scale(var(--s));
+  transform-origin: top left;
+}
+
+.hero-laptop {
+  --s: 0.62;
+  top: 46px;
+  right: 0;
+  width: calc(820px * var(--s));
+  height: calc(540px * var(--s));
   filter: drop-shadow(0 50px 80px rgba(0, 0, 0, 0.4));
 }
+.hero-fit-laptop {
+  width: 820px;
+  height: 540px;
+}
+
 .hero-phone {
-  position: absolute;
-  left: -18px;
-  bottom: -36px;
-  transform: scale(0.5);
-  transform-origin: bottom left;
+  --s: 0.46;
+  left: 0;
+  bottom: 0;
+  width: calc(300px * var(--s));
+  height: calc(620px * var(--s));
   z-index: 3;
   filter: drop-shadow(0 40px 70px rgba(0, 0, 0, 0.5));
 }
+.hero-fit-phone {
+  width: 300px;
+  height: 620px;
+}
 
-
-@media (max-width: 980px) {
-  .hero-inner {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-  .hero-scene {
-    height: 420px;
-    transform: scale(0.82);
-    transform-origin: center;
-    margin-top: 10px;
-  }
+@media (max-width: 1180px) {
   .hero-laptop {
-    right: 0;
+    --s: 0.54;
+  }
+  .hero-phone {
+    --s: 0.42;
   }
 }
 
-@media (max-width: 560px) {
+/* Single column: the scene sits under the copy and never overlaps it. */
+@media (max-width: 980px) {
+  .hero {
+    min-height: 0;
+  }
   .hero-inner {
-    padding-top: 100px;
+    grid-template-columns: 1fr;
+    gap: 44px;
+    padding-block: 118px 72px;
+  }
+  .hero-scene {
+    height: 400px;
+  }
+  .hero-laptop {
+    top: 0;
+    --s: 0.48;
+  }
+  .hero-phone {
+    --s: 0.4;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-inner {
+    padding-block: 104px 56px;
+    gap: 34px;
   }
   .hero-h1 {
     font-size: clamp(40px, 12vw, 60px);
   }
+  .hero-sub {
+    font-size: 16px;
+  }
   .hero-scene {
-    height: 360px;
-    transform: scale(0.62);
+    height: 320px;
+  }
+  .hero-laptop {
+    --s: 0.36;
+  }
+  .hero-phone {
+    --s: 0.31;
   }
 }
