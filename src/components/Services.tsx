@@ -1,5 +1,6 @@
 import { whatWeDo } from "../data/content";
 import { Reveal, useReveal } from "./Reveal";
+import { TechIcon } from "./TechIcon";
 import "./sections.css";
 
 function Tile({ delay, children }: { delay: number; children: React.ReactNode }) {
@@ -25,20 +26,14 @@ export function Services() {
             <Tile key={w.title} delay={(i % 3) * 0.06 + Math.floor(i / 3) * 0.04}>
               <h3>{w.title}</h3>
               <p>{w.line}</p>
-              <div className="wd-tools">
+              <ul className="wd-tools">
                 {w.tools.map((tool) => (
-                  <img
-                    key={tool.slug}
-                    className="tech-ic"
-                    width={22}
-                    height={22}
-                    src={`/icons/${tool.slug}.svg`}
-                    alt={tool.name}
-                    title={tool.name}
-                    loading="lazy"
-                  />
+                  <li className="wd-tool" key={tool.name}>
+                    <TechIcon slug={tool.slug} />
+                    {tool.name}
+                  </li>
                 ))}
-              </div>
+              </ul>
             </Tile>
           ))}
         </div>
