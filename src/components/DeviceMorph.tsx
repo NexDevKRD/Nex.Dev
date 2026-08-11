@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { morphStages } from "../data/content";
-import { AndroidFrame, Cursor, DesktopFrame, Keyboard, LaptopFrame, Mouse, PhoneFrame } from "./Devices";
+import { Cursor, DesktopFrame, Keyboard, LaptopFrame, Mouse, PhoneFrame } from "./Devices";
 import "./morph.css";
 
 // Real product screenshot staged inside a hardware frame.
@@ -13,9 +13,15 @@ function Shot({ src, alt }: { src: string; alt: string }) {
 function baseScale(stage: number) {
   const mobile = window.innerWidth < 680;
   const tablet = window.innerWidth < 1080;
-  if (stage === 0) return mobile ? 0.5 : tablet ? 0.64 : 0.8;
-  if (stage === 1) return mobile ? 0.42 : tablet ? 0.6 : 0.72;
-  return mobile ? 0.32 : tablet ? 0.44 : 0.54;
+  if (stage === 0) return mobile ? 0.42 : tablet ? 0.6 : 0.8;
+  if (stage === 1) return mobile ? 0.36 : tablet ? 0.54 : 0.72;
+  return mobile ? 0.3 : tablet ? 0.42 : 0.54;
+}
+
+// How far the paired phones glide apart. Scaled down on narrow screens so the
+// pair still fits inside the viewport once baseScale is applied.
+function splitX() {
+  return window.innerWidth < 680 ? 62 : window.innerWidth < 1080 ? 120 : 170;
 }
 
 export function DeviceMorph() {
@@ -45,9 +51,10 @@ export function DeviceMorph() {
       gsap.set(".stage-desk .desk-mouse", { x: 360, opacity: 0 });
 
       const tl = gsap.timeline();
-      // 1 — phones glide apart, iPhone left, Android right (smooth, no flip)
-      tl.fromTo(".twin-ios", { x: 0 }, { x: -170, duration: 1, ease: "power2.out" }, 0)
-        .fromTo(".twin-android", { x: 0 }, { x: 170, duration: 1, ease: "power2.out" }, 0);
+      // 1 — the two phones glide apart (smooth, no flip)
+      const split = splitX();
+      tl.fromTo(".twin-l", { x: 0 }, { x: -split, duration: 1, ease: "power2.out" }, 0)
+        .fromTo(".twin-r", { x: 0 }, { x: split, duration: 1, ease: "power2.out" }, 0);
       // 2 — phones out, MacBook appears + opens
       tl.to(groups[0], { opacity: 0, duration: 0.3 }, 1.15)
         .set(groups[1], { opacity: 1 }, 1.22)
@@ -85,10 +92,6 @@ export function DeviceMorph() {
     return (
       <section className="morph morph-static" id="platform" ref={rootRef}>
         <div className="container morph-static-inner">
-          <div className="morph-top">
-            <span>Built once</span>
-            <span>Runs everywhere</span>
-          </div>
           {morphStages.map((stage) => (
             <article className="morph-static-row" key={stage.no}>
               <div className="morph-static-visual">
@@ -126,11 +129,6 @@ export function DeviceMorph() {
     <section className="morph" id="platform" ref={rootRef}>
       <div className="morph-pin" ref={pinRef}>
         <div className="container morph-shell">
-          <div className="morph-top">
-            <span>Built once</span>
-            <span>Runs everywhere</span>
-          </div>
-
           <div className="morph-count" aria-label="Platform stage">
             {morphStages.map((s, i) => (
               <span className={i === active ? "active" : ""} key={s.no}>
@@ -141,15 +139,15 @@ export function DeviceMorph() {
 
           <div className="morph-stage" aria-hidden>
             <div className="morph-group stage-mobile">
-              <div className="twin twin-ios">
+              <div className="twin twin-l">
                 <PhoneFrame>
                   <Shot src={morphStages[0].shot} alt="" />
                 </PhoneFrame>
               </div>
-              <div className="twin twin-android">
-                <AndroidFrame>
+              <div className="twin twin-r">
+                <PhoneFrame>
                   <Shot src={morphStages[0].shotB ?? morphStages[0].shot} alt="" />
-                </AndroidFrame>
+                </PhoneFrame>
               </div>
             </div>
 
