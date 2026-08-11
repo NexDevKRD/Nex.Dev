@@ -50,25 +50,30 @@
   color: var(--muted);
   font-size: 14px;
 }
+/* Full tool set per card: real brand mark plus the name, readable in both
+   themes (the marks are masked and painted with currentColor). */
 .wd-tools {
+  list-style: none;
   display: flex;
   flex-wrap: wrap;
+  gap: 8px;
+  margin: auto 0 0;
+  padding: 24px 0 0;
+}
+.wd-tool {
+  display: inline-flex;
   align-items: center;
-  gap: 16px;
-  margin-top: auto;
-  padding-top: 24px;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
 }
-.tech-ic {
-  width: 22px;
-  height: 22px;
-  opacity: 0.85;
-  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
-}
-.wd-tile:hover .tech-ic {
-  opacity: 1;
-}
-.tech-ic:hover {
-  transform: translateY(-2px);
+.wd-tile:hover .wd-tool {
+  color: var(--fg);
+  border-color: color-mix(in srgb, var(--fg) 26%, var(--line));
 }
 
 @media (max-width: 720px) {
@@ -97,105 +102,65 @@
   color: var(--fg);
 }
 
-.work-head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  max-width: none;
-}
-.work-hint {
-  color: var(--muted);
-  white-space: nowrap;
-  flex: none;
-  animation: hintNudge 2.4s ease-in-out infinite;
-}
-@keyframes hintNudge {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(5px);
-  }
+/* One project per full-width row, sides alternating. No carousel: nothing to
+   drag, nothing cut off at the gutter, and the whole row is the click target. */
+.work-rows {
+  border-top: 1px solid var(--line);
 }
 
-.work-track {
+.work-row {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(340px, 398px);
-  gap: 20px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  margin: 0 -32px;
-  padding: 4px 32px 18px;
-  scrollbar-width: none;
-  cursor: grab;
-  user-select: none;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 3.5%, #000 96.5%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 3.5%, #000 96.5%, transparent);
-}
-.work-track.dragging {
-  cursor: grabbing;
-  scroll-snap-type: none;
-}
-.work-track.dragging .work-card {
-  pointer-events: none;
-}
-
-.work-track::-webkit-scrollbar {
-  display: none;
-}
-
-.work-card {
-  scroll-snap-align: start;
-  min-height: 400px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background: var(--surface);
-  border: 1.5px solid color-mix(in srgb, var(--fg) 20%, var(--line));
-  border-radius: 18px;
-  color: var(--fg);
-  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
-}
-.work-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent);
-}
-
-.work-media {
-  height: 250px;
-  position: relative;
-  overflow: hidden;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 56px;
+  align-items: center;
+  padding: 56px 0;
   border-bottom: 1px solid var(--line);
+  cursor: pointer;
 }
 
-/* Real product shots sit in CSS hardware, scaled down to card size. */
+.work-row-flip .work-visual {
+  order: 2;
+}
+
+.work-visual {
+  position: relative;
+  height: 420px;
+}
+
+/* Real product shots sit in CSS hardware, scaled to the row. */
 .work-stage {
   position: relative;
   width: 100%;
   height: 100%;
 }
+.work-stage .dev {
+  transition: transform 0.45s var(--ease);
+}
 .work-stage-phone .dev {
-  transform: translate(-50%, -50%) scale(0.34);
+  transform: translate(-50%, -50%) scale(0.62);
 }
 .work-stage-laptop .dev {
-  transform: translate(-50%, -50%) scale(0.4);
+  transform: translate(-50%, -50%) scale(0.6);
 }
 .work-stage-desktop .dev {
-  transform: translate(-50%, -50%) scale(0.33);
+  transform: translate(-50%, -50%) scale(0.5);
+}
+.work-row:hover .work-stage-phone .dev {
+  transform: translate(-50%, calc(-50% - 10px)) scale(0.645);
+}
+.work-row:hover .work-stage-laptop .dev {
+  transform: translate(-50%, calc(-50% - 10px)) scale(0.625);
+}
+.work-row:hover .work-stage-desktop .dev {
+  transform: translate(-50%, calc(-50% - 10px)) scale(0.52);
 }
 
-.work-text {
-  position: relative;
-  padding: 24px 30px 28px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+.work-body {
+  max-width: 46ch;
 }
 
 .work-no {
+  display: block;
   color: var(--accent);
   font-family: var(--mono);
   font-size: 11px;
@@ -204,32 +169,32 @@
   text-transform: uppercase;
 }
 
-.work-text h3 {
-  font-size: 25px;
-  font-weight: 570;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-  margin: 0 0 8px;
+.work-body h3 {
+  font-size: clamp(30px, 3.4vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  margin: 0 0 14px;
 }
 
-.work-text p {
+.work-tagline {
   color: var(--muted);
-  font-size: 14px;
+  font-size: 17px;
   line-height: 1.55;
-  margin: 0 0 18px;
+  margin: 0 0 22px;
 }
 
 .work-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .work-tags span {
   color: var(--muted);
   border: 1px solid var(--line);
-  padding: 6px 8px;
+  padding: 6px 9px;
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.06em;
@@ -240,22 +205,23 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  align-self: flex-start;
-  margin-top: auto;
   padding: 0 0 7px;
   border: 0;
   border-bottom: 1px solid currentColor;
   background: transparent;
   color: var(--accent);
   font-family: var(--sans);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: gap 0.2s ease, color 0.2s ease;
 }
 
+.work-row:hover .work-btn {
+  gap: 16px;
+}
+
 .work-btn:hover {
-  gap: 15px;
   color: var(--fg);
 }
 
@@ -301,23 +267,55 @@
     margin-bottom: 38px;
   }
 
-  .work-track {
-    grid-auto-columns: minmax(300px, 82vw);
-    margin: 0 -22px;
-    padding: 0 22px 18px;
+  .work-row {
+    padding: 40px 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .work-row {
+    grid-template-columns: 1fr;
+    gap: 26px;
   }
 
-  .work-media {
-    height: 220px;
+  /* Visual always first once stacked; alternating only reads on two columns. */
+  .work-row-flip .work-visual {
+    order: 0;
   }
 
-  .work-stage-phone .dev {
+  .work-visual {
+    height: 300px;
+  }
+
+  .work-stage-phone .dev,
+  .work-row:hover .work-stage-phone .dev {
+    transform: translate(-50%, -50%) scale(0.44);
+  }
+  .work-stage-laptop .dev,
+  .work-row:hover .work-stage-laptop .dev {
+    transform: translate(-50%, -50%) scale(0.42);
+  }
+  .work-stage-desktop .dev,
+  .work-row:hover .work-stage-desktop .dev {
+    transform: translate(-50%, -50%) scale(0.35);
+  }
+}
+
+@media (max-width: 560px) {
+  .work-visual {
+    height: 250px;
+  }
+
+  .work-stage-phone .dev,
+  .work-row:hover .work-stage-phone .dev {
+    transform: translate(-50%, -50%) scale(0.36);
+  }
+  .work-stage-laptop .dev,
+  .work-row:hover .work-stage-laptop .dev {
+    transform: translate(-50%, -50%) scale(0.36);
+  }
+  .work-stage-desktop .dev,
+  .work-row:hover .work-stage-desktop .dev {
     transform: translate(-50%, -50%) scale(0.3);
-  }
-  .work-stage-laptop .dev {
-    transform: translate(-50%, -50%) scale(0.34);
-  }
-  .work-stage-desktop .dev {
-    transform: translate(-50%, -50%) scale(0.28);
   }
 }
