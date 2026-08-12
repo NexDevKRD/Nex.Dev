@@ -165,6 +165,14 @@ html[data-theme="dark"] .theme-toggle-track {
   background: rgba(244, 244, 245, 0.06);
 }
 
+/* Four links plus the CTA and the toggle stop fitting before the mobile
+   breakpoint takes over. */
+@media (max-width: 900px) {
+  .nav-links {
+    gap: 18px;
+  }
+}
+
 @media (max-width: 720px) {
   .nav-inner {
     height: 64px;

@@ -307,4 +307,19 @@
   .work-media {
     height: 215px;
   }
+
+  /* A card is now roughly 346px wide, narrower than the laptop and monitor
+     frames at their desktop cover scale, which clipped both their edges. */
+  .work-stage-laptop .dev {
+    --cs: 0.36;
+  }
+  .work-stage-desktop .dev {
+    --cs: 0.29;
+  }
+  .work-stage-phone .dev {
+    --cs: 0.62;
+  }
+  .work-bare {
+    width: 178px;
+  }
 }
