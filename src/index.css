@@ -112,11 +112,14 @@ body {
   min-width: 320px;
   overflow-x: hidden;
   background: var(--bg);
+  position: relative;
 }
 
+/* Grain spans the whole document, not the viewport: a fixed overlay ends at
+   the first fold in full-page captures and reads as a two-tone background. */
 body::after {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 200;
   pointer-events: none;
