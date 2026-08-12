@@ -7,6 +7,7 @@ const LINKS = [
   { id: "platform", label: "Platform" },
   { id: "services", label: "Services" },
   { id: "work", label: "Work" },
+  { id: "process", label: "Process" },
 ];
 
 export function Nav() {

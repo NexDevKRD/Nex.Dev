@@ -478,6 +478,46 @@ export const projects: Project[] = [
   },
 ];
 
+// How a project actually runs, start to finish. Numbered because it is a real
+// sequence: each step waits on the one before it.
+export const process = [
+  {
+    no: "01",
+    title: "Call",
+    line: "Twenty minutes, free.",
+    detail: "You tell us what the business needs. We say straight away whether we are the right team and roughly what it takes.",
+    meta: "Same week",
+  },
+  {
+    no: "02",
+    title: "Scope",
+    line: "A written plan and a fixed price.",
+    detail: "Screens, features, what is in and what is out, in one document. Nothing starts until you approve it, and the price does not move after you do.",
+    meta: "3 to 5 days",
+  },
+  {
+    no: "03",
+    title: "Build",
+    line: "You see it every week.",
+    detail: "Working software on a private link from week one. You use it, you tell us what is wrong, we fix it before the next one.",
+    meta: "2 to 10 weeks",
+  },
+  {
+    no: "04",
+    title: "Launch",
+    line: "On the store, on your domain.",
+    detail: "We ship it, hand over the accounts and the code, and train your staff on the parts they touch.",
+    meta: "Launch week",
+  },
+  {
+    no: "05",
+    title: "Support",
+    line: "We stay on it.",
+    detail: "Monitoring, backups and updates. Something breaks, you message us, we reply within a day.",
+    meta: "Ongoing",
+  },
+];
+
 export const contact = {
   heading: "Tell us what you're building.",
   sub: "An app, a site, a system, or just an idea. We reply within a day.",

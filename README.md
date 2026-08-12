@@ -37,6 +37,7 @@ Without a key the form still works in the UI and simulates a successful send.
 ## Structure
 
 - `src/components/ProjectModal.tsx` — full-screen project detail (opened from a Work card): shots, pillars, tech stack.
+- `src/components/Process.tsx` — the five steps a project runs through, between Work and Contact. Numbered because it is a real sequence; edit `process` in `src/data/content.ts`.
 - `src/components/Contact.tsx` — contact form (Web3Forms).
 - `src/components/{Hero,Services,Projects,Footer,Nav,Reveal}.tsx` — page sections + scroll-reveal helper.
 - `src/components/Devices.tsx` — CSS device frames (iPhone, Android, laptop, desktop + peripherals). The iPhone draws no overlays: every capture already carries its own status bar and home indicator. The Android frame adds a punch-hole camera and a gesture navbar on its own opaque strip, so it never lands on the app's tab bar.
