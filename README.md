@@ -67,6 +67,8 @@ ffmpeg -i in.mp4 -an -vf scale=960:-2 -c:v libx264 -crf 30 -preset slow \
 
 ## Notes
 
+- Hero closes with two CTAs: `Start a project` (Volt) and `See the work` (ghost), both underline-style per the design system.
+- Social cards: `index.html` carries Open Graph + Twitter meta; the image is `public/og.png` (regenerate with `node _design/og-shot.mjs` while the dev server runs).
 - Respects `prefers-reduced-motion`: reveals resolve instantly and the device morph falls back to three static rows.
 - Every device frame shows a real product shot. The hero pair plays video on top, with the shot underneath as the poster/fallback.
 - Brand reference and original launch assets live in `_design/`.
