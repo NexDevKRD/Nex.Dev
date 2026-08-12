@@ -70,6 +70,39 @@
   background: #050507;
   z-index: 6;
 }
+/* Opaque strip, so the system bar reads as hardware rather than sitting on
+   top of whatever the app draws at the bottom of its own screen. */
+.android-navbar {
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  bottom: 9px;
+  height: 30px;
+  border-radius: 0 0 30px 30px;
+  background: #050507;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 46px;
+  z-index: 6;
+}
+.android-navbar i {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid rgba(244, 244, 245, 0.5);
+}
+.android-navbar i:first-child {
+  clip-path: polygon(100% 0, 100% 100%, 0 50%);
+  background: rgba(244, 244, 245, 0.5);
+  border: 0;
+}
+.android-navbar i:nth-child(2) {
+  border-radius: 50%;
+}
+.android-navbar i:last-child {
+  border-radius: 2px;
+}
 
 /* ---------- Phone ---------- */
 .phone {

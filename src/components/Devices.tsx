@@ -15,13 +15,19 @@ export function PhoneFrame({ children }: { children: ReactNode }) {
 }
 
 /* ---------- Android ----------
-   Design-system hardware: punch-hole camera, 38px radius. No navbar overlay:
-   it collided with the app's own tab bar. */
+   Design-system hardware: punch-hole camera, gesture navbar, 38px radius.
+   The navbar sits on its own opaque strip so it never lands on top of the
+   app's tab bar. */
 export function AndroidFrame({ children }: { children: ReactNode }) {
   return (
     <div className="dev android">
       <div className="dev-screen">{children}</div>
       <span className="android-punch" aria-hidden />
+      <span className="android-navbar" aria-hidden>
+        <i />
+        <i />
+        <i />
+      </span>
     </div>
   );
 }
