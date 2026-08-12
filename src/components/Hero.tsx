@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import type { ReactNode } from "react";
 import { hero } from "../data/content";
 import { LaptopFrame, PhoneFrame } from "./Devices";
@@ -7,6 +7,7 @@ import "./hero.css";
 
 // Plays a looping video inside a device screen; the real product shot sits
 // underneath and carries the frame until the clip is decoded — or if it fails.
+// Both clips run continuously: they are the hero, so they never pause.
 function MediaScreen({
   src,
   poster,
@@ -19,30 +20,15 @@ function MediaScreen({
   fit?: "cover" | "contain";
 }) {
   const [ok, setOk] = useState(false);
-  const ref = useRef<HTMLVideoElement | null>(null);
-
-  // Two clips decoding forever costs real battery once the hero has scrolled
-  // away. Play only while the frame is on screen.
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) void el.play().catch(() => {});
-      else el.pause();
-    });
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
 
   return (
     <div className="media-screen">
       {children}
       <video
-        ref={ref}
         className={`media-vid media-vid-${fit}`}
         src={src}
         poster={poster}
-        preload="metadata"
+        preload="auto"
         autoPlay
         muted
         loop

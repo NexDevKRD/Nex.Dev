@@ -61,7 +61,8 @@ the hardware beside it. To add a project, append to `projects` in
 
 No third-party requests at runtime — fonts and brand icons are served from the
 origin. Hero clips are H.264, no audio, with a JPEG poster so the frame paints
-before the video decodes, and they pause once the hero scrolls off screen.
+before the video decodes. Both loop continuously and are never paused on
+scroll: they are the hero, and a frozen device reads as a broken page.
 
 Encode at the resolution the frame actually shows, not at CSS display size —
 the devices render on retina, so display-size encodes get upscaled and look
