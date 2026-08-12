@@ -39,7 +39,7 @@ Without a key the form still works in the UI and simulates a successful send.
 - `src/components/ProjectModal.tsx` — full-screen project detail (opened from a Work card): shots, pillars, tech stack.
 - `src/components/Contact.tsx` — contact form (Web3Forms).
 - `src/components/{Hero,Services,Projects,Footer,Nav,Reveal}.tsx` — page sections + scroll-reveal helper.
-- `src/components/Devices.tsx` — CSS device frames (iPhone, laptop, desktop + peripherals). The frames draw no notch or home bar: every shot is a real capture that already has its own.
+- `src/components/Devices.tsx` — CSS device frames (iPhone, Android, laptop, desktop + peripherals). The Android frame draws its punch-hole camera and gesture navbar; iOS status bars in the captures are cropped by `shot--status`.
 - `src/components/TechIcon.tsx` — brand mark masked and painted with `currentColor`, so logos stay readable in both themes.
 - `src/components/Reveal.tsx` — one shared IntersectionObserver; `reveal.css` holds the transitions.
 - `src/data/content.ts` — all copy + project data (single source of truth).
@@ -48,10 +48,12 @@ Without a key the form still works in the UI and simulates a successful send.
 ## Work section
 
 Six shipped projects: Pace, CountCal, ClusterQuest, LiftLog, Bêrg, Marketly Vendors.
-One project per full-width row, sides alternating; the whole row opens the
-detail sheet. Screenshots live in `public/media/work/` as webp and always render
-inside a CSS device frame, never cropped flat. To add a project, append to
-`projects` in `src/data/content.ts` and drop its shots in that folder.
+A three-column grid of design-system work cards (2-up under 1080px, 1-up under
+640px); the whole card opens the detail sheet. Screenshots live in
+`public/media/work/` as webp and render inside a scene that peeks up from the
+card's media zone. iOS captures get their status bar cropped (`shot--status`);
+Bêrg's baked-in bezel is zoomed past (`shot--bezel`). To add a project, append
+to `projects` in `src/data/content.ts` and drop its shots in that folder.
 
 ## Performance
 
