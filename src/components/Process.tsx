@@ -7,7 +7,10 @@ function Step({ step, index }: { step: (typeof process)[number]; index: number }
 
   return (
     <li className="ps-step reveal-sm" ref={ref}>
-      <span className="ps-no mono">{step.no}</span>
+      <span className="ps-mark">
+        <i className="ps-node" aria-hidden />
+        <span className="ps-no">{step.no}</span>
+      </span>
       <div className="ps-body">
         <h3>{step.title}</h3>
         <p className="ps-line">{step.line}</p>
