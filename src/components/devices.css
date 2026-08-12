@@ -35,15 +35,6 @@
   object-position: top center;
 }
 
-/* iOS captures carry their own status bar; inside non-iPhone hardware that
-   double-brands the frame. Oversize the box and slide it up with a
-   translate, which resolves against the element's own height everywhere.
-   Percentage margins resolve against width and left a sliver in Safari. */
-.shot--status {
-  height: 108.5%;
-  transform: translateY(-7.85%);
-}
-
 /* ---------- Android phone (design-system hardware) ---------- */
 .android {
   width: 296px;

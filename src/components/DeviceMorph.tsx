@@ -5,17 +5,9 @@ import { morphStages } from "../data/content";
 import { AndroidFrame, Cursor, DesktopFrame, Keyboard, LaptopFrame, Mouse, PhoneFrame } from "./Devices";
 import "./morph.css";
 
-// Real product screenshot staged inside a hardware frame.
-function Shot({ src, alt, trim }: { src: string; alt: string; trim?: boolean }) {
-  return (
-    <img
-      className={`shot${trim ? " shot--status" : ""}`}
-      src={src}
-      alt={alt}
-      loading="lazy"
-      decoding="async"
-    />
-  );
+// Real product screenshot staged inside a hardware frame, never cropped.
+function Shot({ src, alt }: { src: string; alt: string }) {
+  return <img className="shot" src={src} alt={alt} loading="lazy" decoding="async" />;
 }
 
 function baseScale(stage: number) {
@@ -154,7 +146,7 @@ export function DeviceMorph() {
               </div>
               <div className="twin twin-r">
                 <AndroidFrame>
-                  <Shot src={morphStages[0].shotB ?? morphStages[0].shot} alt="" trim />
+                  <Shot src={morphStages[0].shotB ?? morphStages[0].shot} alt="" />
                 </AndroidFrame>
               </div>
             </div>

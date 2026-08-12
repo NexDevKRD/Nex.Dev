@@ -180,11 +180,11 @@
    image corners rounded so it matches the CSS hardware next to it. */
 .work-bare {
   position: absolute;
-  top: 26px;
+  top: 22px;
   left: 50%;
   transform: translateX(-50%);
-  width: 210px;
-  border-radius: 32px;
+  width: 244px;
+  border-radius: 34px;
   filter: drop-shadow(0 26px 50px rgba(0, 0, 0, 0.45));
   transition: transform 0.45s var(--ease);
 }
@@ -320,6 +320,6 @@
     --cs: 0.62;
   }
   .work-bare {
-    width: 178px;
+    width: 206px;
   }
 }
