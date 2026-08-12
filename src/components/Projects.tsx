@@ -3,10 +3,6 @@ import { Frame } from "./Devices";
 import { Reveal, useReveal } from "./Reveal";
 import "./sections.css";
 
-// Bêrg captures are full phone renders already; framing them again would
-// double the hardware. They stage bare, everything else sits in CSS hardware.
-const isBare = (p: Project) => p.id === "berg";
-
 function Card({ project, index, onOpen }: { project: Project; index: number; onOpen: (p: Project) => void }) {
   const ref = useReveal<HTMLElement>(Math.min(index % 3, 2) * 0.09);
   const shot = project.shots[0];
@@ -15,13 +11,9 @@ function Card({ project, index, onOpen }: { project: Project; index: number; onO
     <article className="work-card reveal-md" ref={ref} onClick={() => onOpen(project)}>
       <div className="work-media">
         <div className={`work-stage work-stage-${project.device}`}>
-          {isBare(project) ? (
-            <img className="work-bare" src={shot.src} alt={`${project.name}: ${shot.label}`} loading="lazy" />
-          ) : (
-            <Frame kind={project.device}>
-              <img className="shot" src={shot.src} alt={`${project.name}: ${shot.label}`} loading="lazy" />
-            </Frame>
-          )}
+          <Frame kind={project.device}>
+            <img className="shot" src={shot.src} alt={`${project.name}: ${shot.label}`} loading="lazy" />
+          </Frame>
         </div>
       </div>
 

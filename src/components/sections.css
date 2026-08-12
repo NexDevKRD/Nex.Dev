@@ -176,22 +176,6 @@
   --cs: 0.36;
 }
 
-/* Bêrg's capture is already a phone render; it stages bare, with its flat
-   image corners rounded so it matches the CSS hardware next to it. */
-.work-bare {
-  position: absolute;
-  top: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 244px;
-  border-radius: 34px;
-  filter: drop-shadow(0 26px 50px rgba(0, 0, 0, 0.45));
-  transition: transform 0.45s var(--ease);
-}
-.work-card:hover .work-bare {
-  transform: translate(-50%, -6px);
-}
-
 .work-text {
   padding: 22px 24px 24px;
   display: flex;
@@ -318,8 +302,5 @@
   }
   .work-stage-phone .dev {
     --cs: 0.62;
-  }
-  .work-bare {
-    width: 206px;
   }
 }

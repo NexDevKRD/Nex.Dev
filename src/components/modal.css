@@ -117,18 +117,6 @@
   transform: translate(-50%, -50%) scale(0.5);
 }
 
-/* The capture already draws its own bezel, but flat to the image edge. The
-   radius rounds those corners so it reads as hardware, not a pasted rectangle. */
-.pj-bare {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  height: 100%;
-  border-radius: 44px;
-  filter: drop-shadow(0 40px 70px rgba(0, 0, 0, 0.5));
-}
-
 .pj-cap {
   margin: 0;
   max-width: 46ch;
@@ -167,10 +155,6 @@
   border: 1px solid var(--panel-line);
   border-radius: 6px;
   transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
-}
-/* Bêrg captures carry a bezel; sample from inside the screen for the thumb. */
-.pj-thumb .pj-thumb-bezel {
-  object-position: center 22%;
 }
 .pj-thumb span {
   font-size: 9px;
