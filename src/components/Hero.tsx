@@ -81,12 +81,12 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Two nested boxes per device on purpose: the outer one carries the
-            entrance animation (which resets transform), the inner one carries
-            the scale. One element could not hold both. */}
+        {/* The slot carries the original scale and its corner origin; the inner
+            box carries the entrance, whose keyframes end at transform:none and
+            would otherwise wipe that scale. */}
         <div className="hero-scene" aria-hidden>
-          <div className="hero-slot hero-laptop hero-piece" style={{ animationDelay: "0.4s" }}>
-            <div className="hero-fit hero-fit-laptop">
+          <div className="hero-laptop">
+            <div className="hero-piece" style={{ animationDelay: "0.4s" }}>
               <LaptopFrame>
                 <MediaScreen src="/media/hero-web.mp4" poster="/media/hero-web-poster.jpg">
                   <img className="shot" src="/media/work/pace-dashboard.webp" alt="" fetchPriority="high" />
@@ -95,16 +95,11 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="hero-slot hero-phone hero-piece" style={{ animationDelay: "0.54s" }}>
-            <div className="hero-fit hero-fit-phone">
+          <div className="hero-phone">
+            <div className="hero-piece" style={{ animationDelay: "0.54s" }}>
               <PhoneFrame>
                 <MediaScreen src="/media/hero-app.mp4" poster="/media/hero-app-poster.jpg">
-                  <img
-                    className="shot"
-                    src="/media/work/countcal-diary.webp"
-                    alt=""
-                    fetchPriority="high"
-                  />
+                  <img className="shot" src="/media/work/countcal-diary.webp" alt="" fetchPriority="high" />
                 </MediaScreen>
               </PhoneFrame>
             </div>
