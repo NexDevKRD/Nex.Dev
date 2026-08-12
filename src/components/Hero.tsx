@@ -71,6 +71,14 @@ export function Hero() {
           <p className="hero-sub hero-rise" style={{ animationDelay: "0.26s" }}>
             {hero.sub}
           </p>
+          <div className="hero-cta hero-rise" style={{ animationDelay: "0.34s" }}>
+            <a className="btn-primary" href="#contact">
+              {hero.ctaPrimary} <span>→</span>
+            </a>
+            <a className="btn-ghost" href="#work">
+              {hero.ctaGhost} <span>→</span>
+            </a>
+          </div>
         </div>
 
         {/* Two nested boxes per device on purpose: the outer one carries the

@@ -8,6 +8,8 @@ export const hero = {
   h1a: "Nex builds software",
   h1b: "people keep using.",
   sub: "Apps, websites and systems, built by one team in Erbil.",
+  ctaPrimary: "Start a project",
+  ctaGhost: "See the work",
   code: "Apps. Web. Systems. Reliability.",
   codeTail: "Built by Nex",
 };

@@ -65,6 +65,12 @@
   font-size: 17px;
   line-height: 1.62;
 }
+.hero-cta {
+  margin-top: 34px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
 
 /* ---- product scene ----
    Both frames are absolutely placed inside the right column and scaled to fit
