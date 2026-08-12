@@ -2,8 +2,6 @@ import { projects, type Project } from "../data/content";
 import { Reveal, useReveal } from "./Reveal";
 import "./sections.css";
 
-const shotClass = (p: Project) => `work-shot${p.trim ? ` shot--${p.trim}` : ""}`;
-
 function Card({ project, index, onOpen }: { project: Project; index: number; onOpen: (p: Project) => void }) {
   const ref = useReveal<HTMLElement>(Math.min(index % 3, 2) * 0.09);
   const shot = project.shots[0];
@@ -12,12 +10,7 @@ function Card({ project, index, onOpen }: { project: Project; index: number; onO
     <article className="work-card reveal-md" ref={ref} onClick={() => onOpen(project)}>
       <div className="work-media">
         <div className={`work-scene work-scene-${project.device}`}>
-          <img
-            className={shotClass(project)}
-            src={shot.src}
-            alt={`${project.name}: ${shot.label}`}
-            loading="lazy"
-          />
+          <img className="work-shot" src={shot.src} alt={`${project.name}: ${shot.label}`} loading="lazy" />
         </div>
       </div>
 

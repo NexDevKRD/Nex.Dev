@@ -152,8 +152,6 @@ export interface Project {
   category: string;
   year: string;
   device: DeviceKind;
-  /** How phone captures sit in the frame: crop an iOS status bar, or zoom past a baked-in bezel. */
-  trim?: "status" | "bezel";
   logo: string | null;
   tagline: string;
   desc: string;
@@ -218,7 +216,6 @@ export const projects: Project[] = [
     category: "Health · Calorie & nutrition tracker",
     year: "2026",
     device: "phone",
-    trim: "status",
     logo: "/media/work/logo-countcal.webp",
     tagline: "Know what you eat, in seconds a day.",
     desc: "Scan a barcode, snap a nutrition label, or search a catalog that already knows Kurdish, Iraqi and Persian food. Set a goal once and CountCal handles the numbers, with or without signal.",
@@ -323,7 +320,6 @@ export const projects: Project[] = [
     category: "Health · Strength training logger",
     year: "2026",
     device: "phone",
-    trim: "status",
     logo: "/media/work/logo-liftlog.webp",
     tagline: "Log a set in two taps. Beat last week.",
     desc: "Pick a lift, log the set, move on. Last session sits right there to beat, a body map shows what you are working, and none of it needs signal in the gym.",
@@ -379,7 +375,6 @@ export const projects: Project[] = [
     category: "Commerce · Kurdish traditional clothing",
     year: "2026",
     device: "phone",
-    trim: "bezel",
     logo: null,
     tagline: "Kurdish traditional dress, every region, one shop.",
     desc: "Kurdish dress is sold in scattered bazaar stalls and DM threads. Bêrg puts women's, men's, wedding and children's pieces in one storefront, each tagged with the region it comes from. It runs in Kurdish, Arabic and English, right to left included, with a real cart, wishlist and order history behind it.",

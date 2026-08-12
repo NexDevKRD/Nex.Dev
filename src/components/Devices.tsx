@@ -15,18 +15,13 @@ export function PhoneFrame({ children }: { children: ReactNode }) {
 }
 
 /* ---------- Android ----------
-   Design-system hardware: punch-hole camera + gesture navbar. Pairs with the
-   iPhone in the morph so the stage reads iOS and Android, not two iPhones. */
+   Design-system hardware: punch-hole camera, 38px radius. No navbar overlay:
+   it collided with the app's own tab bar. */
 export function AndroidFrame({ children }: { children: ReactNode }) {
   return (
     <div className="dev android">
       <div className="dev-screen">{children}</div>
       <span className="android-punch" aria-hidden />
-      <span className="android-navbar" aria-hidden>
-        <i />
-        <i />
-        <i />
-      </span>
     </div>
   );
 }

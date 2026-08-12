@@ -35,18 +35,13 @@
   object-position: top center;
 }
 
-/* iOS captures carry their own status bar; inside CSS hardware that
-   double-brands the frame. Overflow the screen upward so it crops off. */
+/* iOS captures carry their own status bar; inside non-iPhone hardware that
+   double-brands the frame. Oversize the box and slide it up with a
+   translate, which resolves against the element's own height everywhere.
+   Percentage margins resolve against width and left a sliver in Safari. */
 .shot--status {
   height: 108.5%;
-  margin-top: -8.5%;
-}
-
-/* Bêrg captures have a full iPhone bezel baked into the image. Zoom past it
-   so only the app screen shows inside our hardware. */
-.shot--bezel {
-  transform: scale(1.12);
-  transform-origin: 50% 58%;
+  transform: translateY(-7.85%);
 }
 
 /* ---------- Android phone (design-system hardware) ---------- */
@@ -74,34 +69,6 @@
   border-radius: 50%;
   background: #050507;
   z-index: 6;
-}
-.android-navbar {
-  position: absolute;
-  bottom: 10px;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 46px;
-  z-index: 6;
-}
-.android-navbar i {
-  display: block;
-  width: 11px;
-  height: 11px;
-  border: 1.5px solid rgba(244, 244, 245, 0.55);
-}
-.android-navbar i:first-child {
-  clip-path: polygon(100% 0, 100% 100%, 0 50%);
-  background: rgba(244, 244, 245, 0.55);
-  border: 0;
-}
-.android-navbar i:nth-child(2) {
-  border-radius: 50%;
-}
-.android-navbar i:last-child {
-  border-radius: 2px;
 }
 
 /* ---------- Phone ---------- */

@@ -100,7 +100,7 @@ export function Hero() {
               <PhoneFrame>
                 <MediaScreen src="/media/hero-app.mp4" poster="/media/hero-app-poster.jpg">
                   <img
-                    className="shot shot--status"
+                    className="shot"
                     src="/media/work/countcal-diary.webp"
                     alt=""
                     fetchPriority="high"

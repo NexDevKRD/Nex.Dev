@@ -45,20 +45,9 @@ export function Contact() {
           <span className="eyebrow">Get in touch</span>
           <h2 className="section-title">{contact.heading}</h2>
           <p className="contact-sub">{contact.sub}</p>
-          <ul className="contact-meta-list">
-            <li>
-              <span className="mono">Email</span>
-              <a href="mailto:hello@nex.dev">hello@nex.dev</a>
-            </li>
-            <li>
-              <span className="mono">Based in</span>
-              Erbil, Kurdistan
-            </li>
-            <li>
-              <span className="mono">Reply</span>
-              Within a day
-            </li>
-          </ul>
+          <p className="contact-meta mono">
+            <a href="mailto:hello@nex.dev">hello@nex.dev</a> · Erbil, Kurdistan
+          </p>
         </Reveal>
 
         <Reveal delay={0.1} className="contact-card">

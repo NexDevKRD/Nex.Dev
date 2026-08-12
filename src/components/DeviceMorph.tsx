@@ -149,7 +149,7 @@ export function DeviceMorph() {
             <div className="morph-group stage-mobile">
               <div className="twin twin-l">
                 <PhoneFrame>
-                  <Shot src={morphStages[0].shot} alt="" trim />
+                  <Shot src={morphStages[0].shot} alt="" />
                 </PhoneFrame>
               </div>
               <div className="twin twin-r">

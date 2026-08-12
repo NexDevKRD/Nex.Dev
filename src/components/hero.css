@@ -118,6 +118,24 @@
   height: 620px;
 }
 
+/* Wide screens: the scene anchors to the section (viewport) edge, not the
+   container, so the laptop stays by the right edge and the phone sits at its
+   bottom-left at any window width — the same composition as 1440. */
+@media (min-width: 981px) {
+  .hero-scene {
+    position: static;
+  }
+  .hero-laptop {
+    right: clamp(28px, 9vw, 132px);
+    top: calc(50% - 175px);
+  }
+  .hero-phone {
+    left: auto;
+    right: calc(clamp(28px, 9vw, 132px) + 420px);
+    bottom: calc(50% - 290px);
+  }
+}
+
 @media (max-width: 1180px) {
   .hero-laptop {
     --s: 0.54;
