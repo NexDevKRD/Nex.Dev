@@ -82,22 +82,24 @@
   transform: scale(0.92);
   transform-origin: center right;
 }
+/* Layered: laptop behind, bigger and cropped harder by the right edge; phone
+   in front, bigger, its bottom running off the section. */
 .hero-laptop {
   position: absolute;
-  top: 18px;
-  right: -150px;
-  transform: scale(0.7);
+  top: 26px;
+  right: -70px;
+  transform: scale(0.78);
   transform-origin: top right;
-  filter: drop-shadow(0 50px 80px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 50px 90px rgba(0, 0, 0, 0.42));
 }
 .hero-phone {
   position: absolute;
-  left: -18px;
-  bottom: -36px;
-  transform: scale(0.5);
+  left: 22px;
+  bottom: -44px;
+  transform: scale(0.52);
   transform-origin: bottom left;
   z-index: 3;
-  filter: drop-shadow(0 40px 70px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 44px 80px rgba(0, 0, 0, 0.5));
 }
 
 @media (max-width: 980px) {
