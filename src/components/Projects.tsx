@@ -1,38 +1,33 @@
 import { projects, type Project } from "../data/content";
-import { Frame } from "./Devices";
 import { Reveal, useReveal } from "./Reveal";
 import "./sections.css";
 
-function Row({ project, index, onOpen }: { project: Project; index: number; onOpen: (p: Project) => void }) {
-  const ref = useReveal<HTMLElement>(0);
+const shotClass = (p: Project) => `work-shot${p.trim ? ` shot--${p.trim}` : ""}`;
+
+function Card({ project, index, onOpen }: { project: Project; index: number; onOpen: (p: Project) => void }) {
+  const ref = useReveal<HTMLElement>(Math.min(index % 3, 2) * 0.09);
   const shot = project.shots[0];
 
   return (
-    <article
-      className={`work-row reveal-md${index % 2 ? " work-row-flip" : ""}`}
-      ref={ref}
-      onClick={() => onOpen(project)}
-    >
-      <div className="work-visual">
-        <div className={`work-stage work-stage-${project.device}`}>
-          <Frame kind={project.device}>
-            <img className="shot" src={shot.src} alt={`${project.name}: ${shot.label}`} loading="lazy" />
-          </Frame>
+    <article className="work-card reveal-md" ref={ref} onClick={() => onOpen(project)}>
+      <div className="work-media">
+        <div className={`work-scene work-scene-${project.device}`}>
+          <img
+            className={shotClass(project)}
+            src={shot.src}
+            alt={`${project.name}: ${shot.label}`}
+            loading="lazy"
+          />
         </div>
       </div>
 
-      <div className="work-body">
+      <div className="work-text">
         <span className="work-no">
           {project.no} · {project.category.split(" · ")[0]} · {project.year}
         </span>
         <h3>{project.name}</h3>
         <p className="work-tagline">{project.tagline}</p>
-        <div className="work-tags">
-          {project.pillars.slice(0, 3).map((tag) => (
-            <span key={tag}>{tag}</span>
-          ))}
-        </div>
-        {/* The whole row is the click target; this button carries the keyboard
+        {/* The whole card is the click target; this button carries the keyboard
             focus and the label, so it stays reachable without a tab trap. */}
         <button type="button" className="work-btn" onClick={() => onOpen(project)}>
           Open {project.name} <span aria-hidden>→</span>
@@ -51,9 +46,9 @@ export function Projects({ onOpen }: { onOpen: (p: Project) => void }) {
           <h2 className="section-title">What we build, up close.</h2>
         </Reveal>
 
-        <div className="work-rows">
+        <div className="work-grid">
           {projects.map((p, i) => (
-            <Row key={p.id} project={p} index={i} onOpen={onOpen} />
+            <Card key={p.id} project={p} index={i} onOpen={onOpen} />
           ))}
         </div>
       </div>

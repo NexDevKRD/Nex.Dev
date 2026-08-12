@@ -2,12 +2,20 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { morphStages } from "../data/content";
-import { Cursor, DesktopFrame, Keyboard, LaptopFrame, Mouse, PhoneFrame } from "./Devices";
+import { AndroidFrame, Cursor, DesktopFrame, Keyboard, LaptopFrame, Mouse, PhoneFrame } from "./Devices";
 import "./morph.css";
 
 // Real product screenshot staged inside a hardware frame.
-function Shot({ src, alt }: { src: string; alt: string }) {
-  return <img className="shot" src={src} alt={alt} loading="lazy" decoding="async" />;
+function Shot({ src, alt, trim }: { src: string; alt: string; trim?: boolean }) {
+  return (
+    <img
+      className={`shot${trim ? " shot--status" : ""}`}
+      src={src}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+    />
+  );
 }
 
 function baseScale(stage: number) {
@@ -141,13 +149,13 @@ export function DeviceMorph() {
             <div className="morph-group stage-mobile">
               <div className="twin twin-l">
                 <PhoneFrame>
-                  <Shot src={morphStages[0].shot} alt="" />
+                  <Shot src={morphStages[0].shot} alt="" trim />
                 </PhoneFrame>
               </div>
               <div className="twin twin-r">
-                <PhoneFrame>
-                  <Shot src={morphStages[0].shotB ?? morphStages[0].shot} alt="" />
-                </PhoneFrame>
+                <AndroidFrame>
+                  <Shot src={morphStages[0].shotB ?? morphStages[0].shot} alt="" trim />
+                </AndroidFrame>
               </div>
             </div>
 

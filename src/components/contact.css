@@ -21,11 +21,35 @@
   margin: 22px 0 34px;
 }
 
-.contact-meta {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
+/* Meta rows fill the intro column with something useful instead of dead space. */
+.contact-meta-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 380px;
+}
+.contact-meta-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  padding: 14px 0;
+  border-top: 1px solid var(--section-alt-line);
   color: var(--section-alt-fg);
+  font-size: 15px;
+}
+.contact-meta-list li:last-child {
+  border-bottom: 1px solid var(--section-alt-line);
+}
+.contact-meta-list .mono {
+  flex: none;
+  width: 84px;
+  color: var(--section-alt-muted);
+}
+.contact-meta-list a {
+  transition: color 0.2s ease;
+}
+.contact-meta-list a:hover {
+  color: var(--accent);
 }
 
 .contact-card {

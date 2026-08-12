@@ -94,26 +94,27 @@
   padding: 40px 32px 32px;
   border-right: 1px solid var(--panel-line);
   /* Tinted off the panel itself, so the split reads in both themes instead of
-     going black-on-black where --bg-2 and --panel resolve to the same value. */
+     going black-on-black where --bg-2 and --panel resolve to the same value.
+     A soft Volt glow sits behind the hardware; no line texture. */
   background:
-    linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 34px 34px,
-    color-mix(in srgb, var(--panel-fg) 5%, var(--panel));
+    radial-gradient(52% 38% at 50% 40%, rgba(124, 92, 255, 0.09), transparent 72%),
+    color-mix(in srgb, var(--panel-fg) 4%, var(--panel));
 }
 
 .pj-stage {
   position: relative;
   width: 100%;
-  height: 380px;
+  height: 410px;
   flex: none;
 }
 .pj-stage-phone .dev {
-  transform: translate(-50%, -50%) scale(0.58);
+  transform: translate(-50%, -50%) scale(0.63);
 }
 .pj-stage-laptop .dev {
-  transform: translate(-50%, -50%) scale(0.55);
+  transform: translate(-50%, -50%) scale(0.6);
 }
 .pj-stage-desktop .dev {
-  transform: translate(-50%, -50%) scale(0.46);
+  transform: translate(-50%, -50%) scale(0.5);
 }
 
 .pj-cap {
@@ -138,7 +139,7 @@
   flex-direction: column;
   align-items: center;
   gap: 7px;
-  width: 74px;
+  width: 88px;
   padding: 0;
   border: 0;
   background: transparent;
@@ -148,11 +149,16 @@
 }
 .pj-thumb img {
   width: 100%;
-  height: 52px;
+  height: 62px;
   object-fit: cover;
-  object-position: top center;
+  object-position: center 12%;
   border: 1px solid var(--panel-line);
+  border-radius: 6px;
   transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+/* Bêrg captures carry a bezel; sample from inside the screen for the thumb. */
+.pj-thumb .pj-thumb-bezel {
+  object-position: center 22%;
 }
 .pj-thumb span {
   font-size: 9px;

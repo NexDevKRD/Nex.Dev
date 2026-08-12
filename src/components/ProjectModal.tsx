@@ -47,7 +47,11 @@ export function ProjectModal({ project, onClose }: { project: Project | null; on
           <div className="pj-gallery">
             <div className={`pj-stage pj-stage-${project.device}`}>
               <Frame kind={project.device}>
-                <img className="shot" src={active.src} alt={`${project.name}: ${active.label}`} />
+                <img
+                  className={`shot${project.trim ? ` shot--${project.trim}` : ""}`}
+                  src={active.src}
+                  alt={`${project.name}: ${active.label}`}
+                />
               </Frame>
             </div>
 
@@ -63,7 +67,12 @@ export function ProjectModal({ project, onClose }: { project: Project | null; on
                   aria-label={s.label}
                   aria-pressed={i === shot}
                 >
-                  <img src={s.src} alt="" loading="lazy" />
+                  <img
+                    className={project.trim === "bezel" ? "pj-thumb-bezel" : undefined}
+                    src={s.src}
+                    alt=""
+                    loading="lazy"
+                  />
                   <span className="mono">{s.label}</span>
                 </button>
               ))}

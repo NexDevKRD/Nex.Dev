@@ -99,7 +99,12 @@ export function Hero() {
             <div className="hero-fit hero-fit-phone">
               <PhoneFrame>
                 <MediaScreen src="/media/hero-app.mp4" poster="/media/hero-app-poster.jpg">
-                  <img className="shot" src="/media/work/countcal-diary.webp" alt="" fetchPriority="high" />
+                  <img
+                    className="shot shot--status"
+                    src="/media/work/countcal-diary.webp"
+                    alt=""
+                    fetchPriority="high"
+                  />
                 </MediaScreen>
               </PhoneFrame>
             </div>
