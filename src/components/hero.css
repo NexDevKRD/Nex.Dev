@@ -87,7 +87,7 @@
 .hero-laptop {
   position: absolute;
   top: 26px;
-  right: -320px;
+  right: -298px;
   transform: scale(1.05);
   transform-origin: top right;
   filter: drop-shadow(0 50px 90px rgba(0, 0, 0, 0.42));

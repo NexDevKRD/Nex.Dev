@@ -59,14 +59,29 @@ the hardware beside it. To add a project, append to `projects` in
 ## Performance
 
 No third-party requests at runtime — fonts and brand icons are served from the
-origin. Hero clips are encoded at display size (H.264, CRF 30, no audio) with a
-JPEG poster, so the frame paints before the video decodes. They pause once the
-hero scrolls off screen. Re-encode after replacing one:
+origin. Hero clips are H.264, no audio, with a JPEG poster so the frame paints
+before the video decodes, and they pause once the hero scrolls off screen.
+
+Encode at the resolution the frame actually shows, not at CSS display size —
+the devices render on retina, so display-size encodes get upscaled and look
+soft. The phone frame crops a portrait slice out of a landscape source, so crop
+first rather than shipping pixels that are never visible:
 
 ```bash
-ffmpeg -i in.mp4 -an -vf scale=960:-2 -c:v libx264 -crf 30 -preset slow \
+# laptop: native width, quality-targeted
+ffmpeg -i in.mp4 -an -c:v libx264 -crf 21 -preset slow \
   -pix_fmt yuv420p -movflags +faststart public/media/hero-web.mp4
+
+# phone: crop the visible 0.467 portrait slice, 30fps is plenty for a loop
+ffmpeg -i in.mp4 -an -vf "crop=504:1080:468:0,fps=30" -c:v libx264 -crf 20 \
+  -preset slow -pix_fmt yuv420p -movflags +faststart public/media/hero-app.mp4
+
+# poster
+ffmpeg -ss 0.5 -i public/media/hero-web.mp4 -frames:v 1 -q:v 4 \
+  public/media/hero-web-poster.jpg
 ```
+
+Masters live in `Design system with dashboard/site-media/`, not in this repo.
 
 ## Notes
 
