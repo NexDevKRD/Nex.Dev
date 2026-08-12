@@ -36,6 +36,15 @@
   pointer-events: none;
   z-index: 4;
 }
+/* Safari paints a big start-playback button over any clip it decided not to
+   autoplay. Nothing about these is interactive, so the glyph is never wanted. */
+.media-vid::-webkit-media-controls,
+.media-vid::-webkit-media-controls-start-playback-button,
+.media-vid::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
 .media-vid-cover {
   object-fit: cover;
 }
