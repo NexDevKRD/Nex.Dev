@@ -22,41 +22,45 @@ function MediaScreen({
   const [ok, setOk] = useState(false);
   const ref = useRef<HTMLVideoElement | null>(null);
 
-  // React assigns `muted` as a DOM property, so the attribute is missing from
-  // the parsed markup and Safari treats the clip as unmuted and blocks
-  // autoplay, painting its start-playback button over the poster. Set it on
-  // the element and keep asking to play: Safari also refuses while the tab is
-  // hidden or the machine is in Low Power Mode, and only relents later.
+  // Safari decides whether a clip may autoplay when the source starts loading,
+  // and React sets `muted` as a property after the element already has its
+  // src, so the clip is judged unmuted and blocked. Mute first, attach the
+  // source second: that ordering is the whole fix. Everything after it is
+  // belt and braces for a tab that loads in the background.
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     el.muted = true;
     el.defaultMuted = true;
+    el.setAttribute("muted", "");
+    el.setAttribute("playsinline", "");
+    el.setAttribute("autoplay", "");
+    if (el.getAttribute("src") !== src) {
+      el.setAttribute("src", src);
+      el.load();
+    }
 
     const play = () => void el.play().catch(() => {});
     play();
     el.addEventListener("canplay", play);
     el.addEventListener("loadeddata", play);
     document.addEventListener("visibilitychange", play);
-    // Any first interaction satisfies the gesture requirement if it is still
-    // holding out.
-    window.addEventListener("pointerdown", play, { once: true });
 
     return () => {
       el.removeEventListener("canplay", play);
       el.removeEventListener("loadeddata", play);
       document.removeEventListener("visibilitychange", play);
-      window.removeEventListener("pointerdown", play);
     };
-  }, []);
+  }, [src]);
 
   return (
     <div className="media-screen">
       {children}
+      {/* No src here on purpose: the effect attaches it once the element is
+          muted, so Safari never sees a clip it thinks has sound. */}
       <video
         ref={ref}
         className={`media-vid media-vid-${fit}`}
-        src={src}
         poster={poster}
         preload="auto"
         autoPlay
