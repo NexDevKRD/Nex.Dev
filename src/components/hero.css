@@ -88,15 +88,15 @@
   position: absolute;
   top: 26px;
   right: -320px;
-  transform: scale(0.78);
+  transform: scale(1.05);
   transform-origin: top right;
   filter: drop-shadow(0 50px 90px rgba(0, 0, 0, 0.42));
 }
 .hero-phone {
   position: absolute;
   left: 22px;
-  bottom: -90px;
-  transform: scale(0.82);
+  bottom: -70px;
+  transform: scale(1.05);
   transform-origin: bottom left;
   z-index: 3;
   filter: drop-shadow(0 44px 80px rgba(0, 0, 0, 0.5));
