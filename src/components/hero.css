@@ -87,7 +87,7 @@
 .hero-laptop {
   position: absolute;
   top: 26px;
-  right: -180px;
+  right: -320px;
   transform: scale(0.78);
   transform-origin: top right;
   filter: drop-shadow(0 50px 90px rgba(0, 0, 0, 0.42));
@@ -95,8 +95,8 @@
 .hero-phone {
   position: absolute;
   left: 22px;
-  bottom: -62px;
-  transform: scale(0.64);
+  bottom: -90px;
+  transform: scale(0.82);
   transform-origin: bottom left;
   z-index: 3;
   filter: drop-shadow(0 44px 80px rgba(0, 0, 0, 0.5));
