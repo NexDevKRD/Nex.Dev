@@ -75,9 +75,13 @@
 /* ---- product scene ----
    Both frames are absolutely placed inside the right column and scaled to fit
    it, so nothing bleeds past the viewport at any width. */
+/* The staged-product composition from the original hero: laptop bleeding past
+   the right edge, phone anchored bottom-left, whole scene eased back 8%. */
 .hero-scene {
   position: relative;
-  height: 520px;
+  height: 540px;
+  transform: scale(0.92);
+  transform-origin: center right;
 }
 /* --s is the display scale. The slot reserves the *scaled* footprint so
    top/right/bottom anchoring is exact, and .hero-fit holds the device at its
@@ -92,9 +96,9 @@
 }
 
 .hero-laptop {
-  --s: 0.62;
-  top: 46px;
-  right: 0;
+  --s: 0.7;
+  top: 18px;
+  right: -150px;
   width: calc(820px * var(--s));
   height: calc(540px * var(--s));
   filter: drop-shadow(0 50px 80px rgba(0, 0, 0, 0.4));
@@ -105,9 +109,9 @@
 }
 
 .hero-phone {
-  --s: 0.46;
-  left: 0;
-  bottom: 0;
+  --s: 0.5;
+  left: -18px;
+  bottom: -36px;
   width: calc(300px * var(--s));
   height: calc(620px * var(--s));
   z-index: 3;
@@ -116,33 +120,6 @@
 .hero-fit-phone {
   width: 300px;
   height: 620px;
-}
-
-/* Wide screens: the scene anchors to the section (viewport) edge, not the
-   container, so the laptop stays by the right edge and the phone sits at its
-   bottom-left at any window width — the same composition as 1440. */
-@media (min-width: 981px) {
-  .hero-scene {
-    position: static;
-  }
-  .hero-laptop {
-    right: clamp(28px, 9vw, 132px);
-    top: calc(50% - 175px);
-  }
-  .hero-phone {
-    left: auto;
-    right: calc(clamp(28px, 9vw, 132px) + 420px);
-    bottom: calc(50% - 290px);
-  }
-}
-
-@media (max-width: 1180px) {
-  .hero-laptop {
-    --s: 0.54;
-  }
-  .hero-phone {
-    --s: 0.42;
-  }
 }
 
 /* Single column: the scene sits under the copy and never overlaps it. */
@@ -156,14 +133,20 @@
     padding-block: 118px 72px;
   }
   .hero-scene {
-    height: 400px;
+    height: 420px;
+    transform: scale(0.82);
+    transform-origin: center;
   }
   .hero-laptop {
     top: 0;
-    --s: 0.48;
+    right: 0;
   }
-  .hero-phone {
-    --s: 0.4;
+}
+
+@media (max-width: 560px) {
+  .hero-scene {
+    height: 360px;
+    transform: scale(0.62);
   }
 }
 

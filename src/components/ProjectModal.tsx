@@ -46,9 +46,15 @@ export function ProjectModal({ project, onClose }: { project: Project | null; on
               the product, which is what the row was clicked for. */}
           <div className="pj-gallery">
             <div className={`pj-stage pj-stage-${project.device}`}>
-              <Frame kind={project.device}>
-                <img className="shot" src={active.src} alt={`${project.name}: ${active.label}`} />
-              </Frame>
+              {/* Bêrg captures are full phone renders already; framing them
+                  again doubled the hardware. */}
+              {project.id === "berg" ? (
+                <img className="pj-bare" src={active.src} alt={`${project.name}: ${active.label}`} />
+              ) : (
+                <Frame kind={project.device}>
+                  <img className="shot" src={active.src} alt={`${project.name}: ${active.label}`} />
+                </Frame>
+              )}
             </div>
 
             <p className="pj-cap">{active.cap}</p>
